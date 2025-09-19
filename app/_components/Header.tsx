@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,11 +11,26 @@ const menuOption = [
   { name: "Contact Us", path: "/contact-us" },
 ];
 
+const MenuLinks = ({ onClick }: { onClick?: () => void }) => (
+  <>
+    {menuOption.map((menu, index) => (
+      <Link
+        key={`menu-${index}`}
+        href={menu.path}
+        onClick={onClick}
+        className="text-lg hover:scale-105 transition-all hover:text-primary"
+      >
+        {menu.name}
+      </Link>
+    ))}
+  </>
+);
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="flex justify-between items-center p-4 border-b">
+    <header className="flex justify-between items-center p-4 border-b relative">
       {/* Logo */}
       <Link href={"/"}>
         <div className="flex gap-2 items-center">
@@ -26,13 +41,7 @@ const Header = () => {
 
       {/* Desktop menu */}
       <nav className="hidden md:flex gap-10 items-center">
-        {menuOption.map((menu, index) => (
-          <Link key={`menu-${index}`} href={menu.path}>
-            <h2 className="text-lg hover:scale-105 transition-all hover:text-primary">
-              {menu.name}
-            </h2>
-          </Link>
-        ))}
+        <MenuLinks />
       </nav>
 
       {/* Get Started button (desktop only) */}
@@ -52,15 +61,7 @@ const Header = () => {
       {/* Mobile menu */}
       {isOpen && (
         <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center gap-6 py-6 md:hidden z-50">
-          {menuOption.map((menu, index) => (
-            <Link
-              key={`mobile-menu-${index}`}
-              href={menu.path}
-              onClick={() => setIsOpen(false)}
-            >
-              <h2 className="text-lg hover:text-primary">{menu.name}</h2>
-            </Link>
-          ))}
+          <MenuLinks onClick={() => setIsOpen(false)} />
           <Button className="w-3/4">Get Started</Button>
         </div>
       )}
