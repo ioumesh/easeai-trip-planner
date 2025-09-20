@@ -39,7 +39,7 @@ const Hero = () => {
           <div className="border rounded-2xl p-4 relative">
             <Textarea
               placeholder="Create a trip for Delhi to Goa...."
-              className="w-full h-40  bg-transparent border-none focus-visible:ring-0 shadow-none resize-none"
+              className="w-full h-28  bg-transparent border-none focus-visible:ring-0 shadow-none resize-none"
             />
             <Button size={"icon"} className="absolute right-6 bottom-6">
               <Send className="h-4 w-4" />
@@ -47,6 +47,17 @@ const Hero = () => {
           </div>
         </div>
         {/* Suggestion */}
+        <div className="flex gap-5">
+          {Suggestion.map((Suggestion, index) => (
+            <div
+              key={`suggestion${index}`}
+              className="flex items-center border rounded-full p-2 gap-2 cursor-pointer hover:bg-primary hover:text-white"
+            >
+              {Suggestion.icon}
+              <h2 className="text-sm">{Suggestion.title}</h2>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
