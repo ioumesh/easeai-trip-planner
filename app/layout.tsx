@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Toaster } from "sonner";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 
 export const metadata: Metadata = {
@@ -23,12 +24,16 @@ export default function RootLayout({
     <ConvexClientProvider>
         {children}
         </ConvexClientProvider>
-        <Toaster
+        <ToastContainer
           position="top-center"
-          theme="system"
-          toastOptions={{
-            duration: 2200
-          }}
+          autoClose={2200}
+          newestOnTop
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          transition={Slide}
+          theme="colored"
         />
       </body>
     </html>

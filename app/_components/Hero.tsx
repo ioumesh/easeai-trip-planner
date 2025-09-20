@@ -6,7 +6,7 @@ import { ArrowDown, Globe, Globe2, Landmark, Plane, Send } from "lucide-react";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 const suggestions = [
   {
     title: "Create New Trip",
@@ -37,9 +37,7 @@ const Hero = () => {
     }
     if (!prompt.trim()) {
       setShowError(true);
-      toast("Tell me about your trip to get started", {
-        icon: "✈️",
-      });
+      toast.error("Tell me about your trip to get started");
       textareaRef.current?.focus();
       // remove error highlight after a short delay
       setTimeout(() => setShowError(false), 1200);
