@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./_components/Header";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
-
+import { UserDetailContext } from "@/context/UserDetailContex";
 const Provider = ({
   children,
 }: Readonly<{
@@ -12,6 +12,7 @@ const Provider = ({
 }>) => {
   const createUser = useMutation(api.user.createNewUser);
   const { user } = useUser();
+  const [userDetail, setUserDetail] = useState(null);
   useEffect(() => {
     if (user) {
       createNewUser();
@@ -24,14 +25,14 @@ const Provider = ({
         email: user?.emailAddresses[0].emailAddress,
         imageUrl: user?.imageUrl,
       });
-      return res;
+      setUserDetail(res);
     }
   }
   return (
-    <div>
+    <UserDetailContext.Provider value={{ userDetail, setUserDetail:setUserDetail }}>
       <Header />
       {children}
-    </div>
+    </UserDetailContext.Provider>
   );
 };
 

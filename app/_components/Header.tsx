@@ -53,7 +53,7 @@ const Header = () => {
           </SignInButton>
         ) : (
           <Link href="/trips/new">
-            <Button size="lg">Create New Trip</Button>
+            <Button size="lg" className="cursor-pointer">Create New Trip</Button>
           </Link>
         )}
       </div>
@@ -79,7 +79,7 @@ const Header = () => {
             </SignInButton>
           ) : (
             <Link href="/trips/new">
-              <Button className="w-full max-w-sm" onClick={() => setIsOpen(false)}>Create New Trip</Button>
+              <Button className="w-full max-w-sm cursor-pointer" onClick={() => setIsOpen(false)}>Create New Trip</Button>
             </Link>
           )}
         </div>
