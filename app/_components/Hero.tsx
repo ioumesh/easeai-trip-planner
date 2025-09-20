@@ -31,6 +31,15 @@ const Hero = () => {
   const [showError, setShowError] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const router = useRouter();
+  const handleSuggestionClick = (title: string) => {
+    if (title === "Create New Trip") {
+      if (!user) return router.push("/sign-in");
+      return router.push("/trips/new");
+    }
+    // For other suggestions, prefill prompt
+    setPrompt(title + ": ");
+    textareaRef.current?.focus();
+  };
   const handleSubmit = () => {
     if (!user) {
       return router.push("/sign-in");
@@ -81,6 +90,7 @@ const Hero = () => {
             <div
               key={`suggestion${index}`}
               className="flex items-center border rounded-full px-3.5 py-2 gap-2 cursor-pointer hover:bg-primary hover:text-white transition-colors select-none text-xs sm:text-sm"
+              onClick={() => handleSuggestionClick(item.title)}
             >
               {item.icon}
               <h2 className="">{item.title}</h2>

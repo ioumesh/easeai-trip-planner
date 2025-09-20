@@ -1,10 +1,10 @@
-"use client";
+  "use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 
 const menuOption = [
   { name: "Home", path: "/" },
@@ -29,7 +29,7 @@ const MenuLinks = ({ onClick }: { onClick?: () => void }) => (
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { user } = useUser();
   return (
     <header className="flex justify-between items-center p-4 border-b relative">
       {/* Logo */}
@@ -45,11 +45,17 @@ const Header = () => {
         <MenuLinks />
       </nav>
 
-      {/* Get Started button (desktop only) */}
+      {/* Get Started / Create Trip (desktop only) */}
       <div className="hidden md:block">
+        {!user ? (
           <SignInButton mode="modal">
-          <Button>Get Started</Button>
-        </SignInButton>
+            <Button size="lg">Get Started</Button>
+          </SignInButton>
+        ) : (
+          <Link href="/trips/new">
+            <Button size="lg">Create New Trip</Button>
+          </Link>
+        )}
       </div>
 
       {/* Mobile menu toggle */}
@@ -57,17 +63,25 @@ const Header = () => {
         className="md:hidden"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
+        aria-expanded={isOpen}
+        aria-controls="mobile-menu"
       >
         {isOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center gap-6 py-6 md:hidden z-50">
+        <div id="mobile-menu" className="absolute top-16 left-0 w-full bg-background shadow-md flex flex-col items-center gap-6 py-6 md:hidden z-50 px-4">
           <MenuLinks onClick={() => setIsOpen(false)} />
+          {!user ? (
             <SignInButton mode="modal">
-          <Button className="w-3/4">Get Started</Button>
-          </SignInButton>
+              <Button className="w-full max-w-sm" onClick={() => setIsOpen(false)}>Get Started</Button>
+            </SignInButton>
+          ) : (
+            <Link href="/trips/new">
+              <Button className="w-full max-w-sm" onClick={() => setIsOpen(false)}>Create New Trip</Button>
+            </Link>
+          )}
         </div>
       )}
     </header>
