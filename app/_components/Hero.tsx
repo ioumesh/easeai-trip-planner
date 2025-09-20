@@ -1,8 +1,12 @@
-import React from "react";
+"use client";
+import React, { useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Globe, Globe2, Landmark, Plane, Send } from "lucide-react";
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 const suggestions = [
   {
     title: "Create New Trip",
@@ -22,6 +26,28 @@ const suggestions = [
   },
 ];
 const Hero = () => {
+  const { user } = useUser();
+  const [prompt, setPrompt] = useState("");
+  const [showError, setShowError] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const router = useRouter();
+  const handleSubmit = () => {
+    if (!user) {
+      return router.push("/sign-in");
+    }
+    if (!prompt.trim()) {
+      setShowError(true);
+      toast("Tell me about your trip to get started", {
+        icon: "✈️",
+      });
+      textareaRef.current?.focus();
+      // remove error highlight after a short delay
+      setTimeout(() => setShowError(false), 1200);
+      return;
+    }
+    // navigate to the trip page
+    router.push("/trips/new");
+  };
   return (
     <div className="mt-12 md:mt-24 w-full flex justify-center px-4 sm:px-6">
       {/* Content */}
@@ -37,12 +63,16 @@ const Hero = () => {
 
         {/* Input Box */}
         <div>
-          <div className="border rounded-2xl p-4 sm:p-5 md:p-6 relative focus-within:ring-2 focus-within:ring-primary/40">
+          <div className={`border rounded-2xl p-4 sm:p-5 md:p-6 relative focus-within:ring-2 focus-within:ring-primary/40 ${showError ? "ring-2 ring-destructive/40" : ""}`}>
             <Textarea
-              placeholder="Create a trip for Delhi to Goa...."
+              ref={textareaRef}
+              placeholder={`Create a trip for ${user?.firstName ?? "me"} to Goa...`}
               className="w-full min-h-[120px] sm:min-h-[140px] md:min-h-[160px] bg-transparent border-none focus-visible:ring-0 shadow-none resize-none pr-12"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              aria-invalid={showError || undefined}
             />
-            <Button size={"icon"} className="absolute right-5 bottom-5 h-10 w-10 sm:h-11 sm:w-11 rounded-full shadow-md">
+            <Button size={"icon"} className={`absolute right-5 bottom-5 h-10 w-10 sm:h-11 sm:w-11 rounded-full shadow-md ${showError ? "animate-bounce" : ""}`} onClick={handleSubmit}>
               <Send className="h-4 w-4" />
             </Button>
           </div>

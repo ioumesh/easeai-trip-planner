@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { SignInButton } from "@clerk/nextjs";
 
 const menuOption = [
   { name: "Home", path: "/" },
@@ -46,7 +47,9 @@ const Header = () => {
 
       {/* Get Started button (desktop only) */}
       <div className="hidden md:block">
-        <Button>Get Started</Button>
+          <SignInButton mode="modal">
+          <Button>Get Started</Button>
+        </SignInButton>
       </div>
 
       {/* Mobile menu toggle */}
@@ -62,7 +65,9 @@ const Header = () => {
       {isOpen && (
         <div className="absolute top-16 left-0 w-full bg-white shadow-md flex flex-col items-center gap-6 py-6 md:hidden z-50">
           <MenuLinks onClick={() => setIsOpen(false)} />
+            <SignInButton mode="modal">
           <Button className="w-3/4">Get Started</Button>
+          </SignInButton>
         </div>
       )}
     </header>
