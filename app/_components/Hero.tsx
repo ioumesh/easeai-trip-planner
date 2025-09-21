@@ -2,8 +2,7 @@
 import React, { useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Globe, Globe2, Landmark, Plane, Send } from "lucide-react";
-import { HeroVideoDialog } from "@/components/ui/hero-video-dialog";
+import {Globe, Globe2, Landmark, Plane, Send } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -98,25 +97,7 @@ const Hero = () => {
           ))}
         </div>
          {/* video section */}
-        <div>
-        <h2 className="mt-10 md:mt-16 mb-4 md:mb-6 flex flex-wrap items-center justify-center gap-2 text-sm sm:text-base">Not sure how to plan your trip?<strong className="text-primary">Watch this video </strong><ArrowDown className="h-4 w-4 md:h-5 md:w-5" /></h2>
-        <div className="relative rounded-xl overflow-hidden border shadow-sm">
-      <HeroVideoDialog
-        className="block dark:hidden"
-        animationStyle="from-center"
-        videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
-        thumbnailSrc="https://startup-template-sage.vercel.app/hero-light.png"
-        thumbnailAlt="Hero Video"
-      />
-      <HeroVideoDialog
-        className="hidden dark:block"
-        animationStyle="from-center"
-        videoSrc="https://www.youtube.com/embed/qh3NGpYRG3I?si=4rb-zSdDkVK9qxxb"
-        thumbnailSrc="https://startup-template-sage.vercel.app/hero-dark.png"
-        thumbnailAlt="Hero Video"
-      />
-    </div>
-      </div>
+ 
       </div>
      
       
