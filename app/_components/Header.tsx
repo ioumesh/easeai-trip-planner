@@ -45,7 +45,7 @@ const Header = () => {
         <MenuLinks />
       </nav>
 
-      {/* Get Started / Create Trip + User (desktop only) */}
+      {/* Get Started / My Trips + User (desktop only) */}
       <div className="hidden md:flex items-center gap-3">
         {!user ? (
           <SignInButton mode="modal">
@@ -53,8 +53,8 @@ const Header = () => {
           </SignInButton>
         ) : (
           <>
-            <Link href="/trips/new">
-              <Button size="lg" className="cursor-pointer">Create New Trip</Button>
+            <Link href="/trips">
+              <Button size="lg" className="cursor-pointer">My Trips</Button>
             </Link>
             <UserButton afterSignOutUrl="/"/>
           </>
@@ -82,8 +82,8 @@ const Header = () => {
             </SignInButton>
           ) : (
             <>
-              <Link href="/trips/new">
-                <Button className="w-full max-w-sm cursor-pointer" onClick={() => setIsOpen(false)}>Create New Trip</Button>
+              <Link href="/trips">
+                <Button className="w-full max-w-sm cursor-pointer" onClick={() => setIsOpen(false)}>My Trips</Button>
               </Link>
               <div className="pt-1"><UserButton afterSignOutUrl="/"/></div>
             </>
