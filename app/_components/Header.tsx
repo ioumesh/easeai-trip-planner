@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { SignInButton, useUser } from "@clerk/nextjs";
+import { SignInButton, useUser, UserButton } from "@clerk/nextjs";
 
 const menuOption = [
   { name: "Home", path: "/" },
@@ -45,16 +45,19 @@ const Header = () => {
         <MenuLinks />
       </nav>
 
-      {/* Get Started / Create Trip (desktop only) */}
-      <div className="hidden md:block">
+      {/* Get Started / Create Trip + User (desktop only) */}
+      <div className="hidden md:flex items-center gap-3">
         {!user ? (
           <SignInButton mode="modal">
             <Button size="lg">Get Started</Button>
           </SignInButton>
         ) : (
-          <Link href="/trips/new">
-            <Button size="lg" className="cursor-pointer">Create New Trip</Button>
-          </Link>
+          <>
+            <Link href="/trips/new">
+              <Button size="lg" className="cursor-pointer">Create New Trip</Button>
+            </Link>
+            <UserButton afterSignOutUrl="/"/>
+          </>
         )}
       </div>
 
@@ -78,9 +81,12 @@ const Header = () => {
               <Button className="w-full max-w-sm" onClick={() => setIsOpen(false)}>Get Started</Button>
             </SignInButton>
           ) : (
-            <Link href="/trips/new">
-              <Button className="w-full max-w-sm cursor-pointer" onClick={() => setIsOpen(false)}>Create New Trip</Button>
-            </Link>
+            <>
+              <Link href="/trips/new">
+                <Button className="w-full max-w-sm cursor-pointer" onClick={() => setIsOpen(false)}>Create New Trip</Button>
+              </Link>
+              <div className="pt-1"><UserButton afterSignOutUrl="/"/></div>
+            </>
           )}
         </div>
       )}

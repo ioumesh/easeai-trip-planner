@@ -1,0 +1,31 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g1)"/>
+  <circle cx="1300" cy="180" r="90" fill="url(#sun)" opacity="0.9"/>
+  <g opacity="0.15" fill="#ffffff">
+    <path d="M0 650 C 200 600, 400 700, 600 650 S 1000 700, 1200 650 S 1500 700, 1600 650 L 1600 900 L 0 900 Z"/>
+    <path d="M0 700 C 250 660, 450 740, 650 700 S 1050 740, 1250 700 S 1500 760, 1600 720 L 1600 900 L 0 900 Z"/>
+  </g>
+  <g fill="#ffffff" opacity="0.9">
+    <rect x="220" y="520" width="480" height="260" rx="24"/>
+    <rect x="1020" y="420" width="300" height="220" rx="20" opacity="0.85"/>
+    <rect x="780" y="580" width="360" height="200" rx="22" opacity="0.9"/>
+  </g>
+  <g fill="#0ea5e9" opacity="0.2">
+    <circle cx="340" cy="610" r="28"/>
+    <circle cx="540" cy="610" r="28"/>
+    <rect x="360" y="660" width="200" height="28" rx="14"/>
+  </g>
+  <text x="240" y="560" font-size="28" font-family="Inter, Arial" fill="#0f172a" opacity="0.72">Visualize your next getaway</text>
+  <text x="240" y="596" font-size="16" font-family="Inter, Arial" fill="#0f172a" opacity="0.55">Your trip map, day plans, and highlights will appear here</text>
+</svg>
+
